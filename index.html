@@ -63,6 +63,12 @@
 
   /* ---------- Toolbar ---------- */
   #floorapp .toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:10px; flex-wrap:wrap; }
+  #floorapp .tab-group{ display:flex; gap:6px; border:var(--border-w) solid var(--ink); border-radius:var(--radius-sm); padding:4px; background:var(--card); box-shadow:var(--shadow-ink-sm); }
+  #floorapp .tab-btn{
+    font-family:inherit; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.02em;
+    padding:7px 13px; border-radius:8px; border:none; background:transparent; color:var(--ink-mute); cursor:pointer;
+  }
+  #floorapp .tab-btn.active{ background:var(--ink); color:var(--canvas); }
   #floorapp .pill-select{
     font-family:inherit; font-size:12px; font-weight:700; padding:8px 12px; border-radius:var(--radius-sm);
     border:var(--border-w) solid var(--ink); background:var(--card); color:var(--ink);
@@ -189,6 +195,8 @@
   #floorapp .room-card.estimated{ border-left:5px solid var(--pink); }
   #floorapp .room-card-header{ display:flex; align-items:center; gap:10px; }
   #floorapp .room-card-measurements{ display:grid; grid-template-columns:0.85fr 1.15fr 0.75fr 0.7fr auto; gap:10px; align-items:end; }
+  #floorapp .room-card-wallarea{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; align-items:end; }
+  #floorapp .room-card-wallcost{ display:grid; grid-template-columns:1.3fr 0.75fr 0.7fr auto; gap:10px; align-items:end; border-top:1px dashed var(--line); padding-top:10px; }
   #floorapp .room-card-product{ display:grid; grid-template-columns:1fr 1fr auto; gap:10px; align-items:end; border-top:1px dashed var(--line); padding-top:10px; }
   #floorapp .product-link-btn{
     display:flex; align-items:center; justify-content:center; width:36px; height:36px; flex-shrink:0;
@@ -215,6 +223,14 @@
   #floorapp input[type="number"]{ font-family:'JetBrains Mono', monospace; }
   #floorapp input:focus{ outline:2.5px solid var(--lime); outline-offset:1px; }
   #floorapp .room-name-input{ font-weight:700; font-size:14px; flex:1; }
+
+  #floorapp select.flooring-type-select{
+    font-family:inherit; font-size:13px; padding:7px 8px; border:1.5px solid var(--ink);
+    border-radius:8px; color:var(--ink); width:100%; background-color:#fff; transition:background-color .15s ease;
+  }
+  #floorapp select.flooring-type-select.tint-carpet{ background-color:rgba(255,111,160,0.20); }
+  #floorapp select.flooring-type-select.tint-timber{ background-color:rgba(198,241,53,0.28); }
+  #floorapp select.flooring-type-select.tint-tile{ background-color:rgba(123,92,250,0.16); }
 
   #floorapp .est-tag{
     font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.03em; color:var(--pink-ink);
@@ -292,14 +308,14 @@
     { id:'r2', floor:'First Floor', name:'Study', area:10.33, flooring:'Carpet', price:0, wastage:10, estimated:false, include:true, manufacturer:'', productLink:'' },
     { id:'r3', floor:'First Floor', name:'Bedroom 2', area:6.34, flooring:'Carpet', price:0, wastage:15, estimated:false, include:true, manufacturer:'', productLink:'' },
     { id:'r4', floor:'First Floor', name:'Bedroom 3', area:6.13, flooring:'Carpet', price:0, wastage:15, estimated:false, include:true, manufacturer:'', productLink:'' },
-    { id:'r5', floor:'First Floor', name:'Family Bathroom', area:6.10, flooring:'Vinyl / Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
-    { id:'r6', floor:'First Floor', name:'WC / Cloakroom', area:1.70, flooring:'Vinyl / Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
+    { id:'r5', floor:'First Floor', name:'Family Bathroom', area:6.10, flooring:'Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
+    { id:'r6', floor:'First Floor', name:'WC / Cloakroom', area:1.70, flooring:'Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
     { id:'r7', floor:'Ground Floor', name:'Reception Room', area:14.34, flooring:'Carpet', price:0, wastage:15, estimated:false, include:true, manufacturer:'', productLink:'' },
-    { id:'r8', floor:'Ground Floor', name:'Kitchen / Breakfast Room', area:24.05, flooring:'LVT / Hard flooring', price:0, wastage:10, estimated:false, include:false, manufacturer:'', productLink:'' },
-    { id:'r9', floor:'Ground Floor', name:'Dining Room', area:12.69, flooring:'LVT / Hard flooring', price:0, wastage:10, estimated:false, include:true, manufacturer:'', productLink:'' },
+    { id:'r8', floor:'Ground Floor', name:'Kitchen / Breakfast Room', area:24.05, flooring:'Tile', price:0, wastage:10, estimated:false, include:false, manufacturer:'', productLink:'' },
+    { id:'r9', floor:'Ground Floor', name:'Dining Room', area:12.69, flooring:'Tile', price:0, wastage:10, estimated:false, include:true, manufacturer:'', productLink:'' },
     { id:'r10', floor:'Ground Floor', name:'Porch', area:1.85, flooring:'Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
-    { id:'r11', floor:'Ground Floor', name:'WC / Cloakroom', area:3.10, flooring:'Vinyl / Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
-    { id:'r12', floor:'Outbuilding', name:'Office', area:8.63, flooring:'LVT / Hard flooring', price:0, wastage:10, estimated:false, include:false, manufacturer:'', productLink:'' },
+    { id:'r11', floor:'Ground Floor', name:'WC / Cloakroom', area:3.10, flooring:'Tile', price:0, wastage:15, estimated:true, include:false, manufacturer:'', productLink:'' },
+    { id:'r12', floor:'Outbuilding', name:'Office', area:8.63, flooring:'Tile', price:0, wastage:10, estimated:false, include:false, manufacturer:'', productLink:'' },
   ];
 
   const DEFAULT_COMPARE = [
@@ -308,17 +324,29 @@
     { id:'tile', name:'Tile', price:0, cls:'tile' },
   ];
 
+  // Wall compare categories reuse the same three CSS colour slots (carpet/timber/tile classes are
+  // just "slot 1/2/3" colours under the hood) so no new styling is needed for a second material domain.
+  const DEFAULT_WALL_COMPARE = [
+    { id:'paint', name:'Paint', price:0, cls:'carpet' },
+    { id:'tiles', name:'Tiles', price:0, cls:'timber' },
+    { id:'panelling', name:'Panelling', price:0, cls:'tile' },
+  ];
+
   const FLOOR_COLORS = { 'First Floor':'#FF6FA0', 'Ground Floor':'#7B5CFA', 'Outbuilding':'#C6F135' };
 
   const ROOMS_KEY = 'flooring-calc-rooms-v2';
   const COMPARE_KEY = 'flooring-calc-compare-v2';
   const CURRENCY_KEY = 'flooring-calc-currency-v1';
+  const WALL_ROOMS_KEY = 'flooring-calc-wallrooms-v1';
+  const WALL_COMPARE_KEY = 'flooring-calc-wallcompare-v1';
+  const TAB_KEY = 'flooring-calc-tab-v1';
 
   const root = document.getElementById('root');
   let rooms = null, compareOptions = null, currency = '£';
-  let displayedTotal = 0; // for count-up animation
-  let displayedCompareTotals = {};
+  let wallRooms = null, wallCompareOptions = null;
+  let activeTab = 'flooring';
   let nextIdNum = 100;
+  let nextWallIdNum = 100;
   let rafHandle = null;
 
   function fmt(n){ return (Math.round(n*100)/100).toLocaleString('en-GB', { minimumFractionDigits:2, maximumFractionDigits:2 }); }
@@ -365,6 +393,37 @@
   const scheduleSaveRooms = makeSaver(ROOMS_KEY, ()=>rooms);
   const scheduleSaveCompare = makeSaver(COMPARE_KEY, ()=>compareOptions);
   const scheduleSaveCurrency = makeSaver(CURRENCY_KEY, ()=>currency);
+  const scheduleSaveWallRooms = makeSaver(WALL_ROOMS_KEY, ()=>wallRooms);
+  const scheduleSaveWallCompare = makeSaver(WALL_COMPARE_KEY, ()=>wallCompareOptions);
+  const scheduleSaveTab = makeSaver(TAB_KEY, ()=>activeTab);
+
+  // First time the Walls tab is used, seed it from whatever rooms already exist in Flooring —
+  // same names/floors/include-state, but with fresh wall-specific fields. After this one-time
+  // copy the two lists are fully independent; editing one never touches the other again.
+  function deriveWallRoomsFromFlooring(){
+    return rooms.map(r => ({
+      id: r.id, floor: r.floor, name: r.name,
+      height: 2.4, perimeter: 0, area: 0,
+      wallType: '', price: 0, wastage: 10,
+      estimated: false, include: r.include,
+      manufacturer: '', productLink: '',
+    }));
+  }
+
+  // Older saved sessions may still have free-typed flooring values from before the dropdown existed.
+  // Map the ones we know about onto the current categories so they tint correctly automatically.
+  const LEGACY_FLOORING_MAP = { 'vinyl / tile':'Tile', 'vinyl/tile':'Tile', 'lvt / hard flooring':'Tile', 'lvt/hard flooring':'Tile', 'hard flooring':'Tile', 'vinyl':'Tile', 'lvt':'Tile', 'wood':'Timber', 'hardwood':'Timber' };
+  function migrateLegacyFlooring(){
+    let changed = false;
+    rooms.forEach(r=>{
+      const key = String(r.flooring||'').trim().toLowerCase();
+      if(LEGACY_FLOORING_MAP[key] && r.flooring !== LEGACY_FLOORING_MAP[key]){
+        r.flooring = LEGACY_FLOORING_MAP[key];
+        changed = true;
+      }
+    });
+    return changed;
+  }
 
   async function load(){
     try{ const res = await window.storage.get(ROOMS_KEY); rooms = res ? JSON.parse(res.value) : DEFAULT_ROOMS.map(r=>({...r})); }
@@ -373,7 +432,15 @@
     catch(e){ compareOptions = DEFAULT_COMPARE.map(c=>({...c})); }
     try{ const c = await window.storage.get(CURRENCY_KEY); currency = c ? JSON.parse(c.value) : '£'; }
     catch(e){ currency = '£'; }
-    compareOptions.forEach(c => displayedCompareTotals[c.id] = 0);
+    if(migrateLegacyFlooring()) scheduleSaveRooms();
+
+    try{ const res = await window.storage.get(WALL_ROOMS_KEY); wallRooms = res ? JSON.parse(res.value) : deriveWallRoomsFromFlooring(); }
+    catch(e){ wallRooms = deriveWallRoomsFromFlooring(); }
+    try{ const res = await window.storage.get(WALL_COMPARE_KEY); wallCompareOptions = res ? JSON.parse(res.value) : DEFAULT_WALL_COMPARE.map(c=>({...c})); }
+    catch(e){ wallCompareOptions = DEFAULT_WALL_COMPARE.map(c=>({...c})); }
+    try{ const res = await window.storage.get(TAB_KEY); activeTab = res ? JSON.parse(res.value) : 'flooring'; }
+    catch(e){ activeTab = 'flooring'; }
+
     render();
   }
 
@@ -421,7 +488,46 @@
   function resetDefaults(){
     if(!confirm('Reset all rooms, prices and compare options back to defaults? This clears anything custom you have added.')) return;
     rooms = DEFAULT_ROOMS.map(r=>({...r})); compareOptions = DEFAULT_COMPARE.map(c=>({...c}));
-    scheduleSaveRooms(); scheduleSaveCompare(); render();
+    wallRooms = deriveWallRoomsFromFlooring(); wallCompareOptions = DEFAULT_WALL_COMPARE.map(c=>({...c}));
+    scheduleSaveRooms(); scheduleSaveCompare(); scheduleSaveWallRooms(); scheduleSaveWallCompare(); render();
+  }
+
+  // ---- Wall tab equivalents of the room/compare update & CRUD functions above ----
+  function updateWallRoom(id, field, value){ const r = wallRooms.find(x=>x.id===id); if(!r) return; r[field]=value; scheduleSaveWallRooms(); recomputeWalls(); }
+  function toggleWallInclude(id){
+    const r = wallRooms.find(x=>x.id===id); if(!r) return;
+    r.include = !r.include;
+    const btn = document.querySelector(`[data-toggle-include="${id}"]`);
+    if(btn) btn.classList.toggle('on', r.include);
+    scheduleSaveWallRooms(); recomputeWalls();
+  }
+  function updateWallCompare(id, field, value){ const c = wallCompareOptions.find(x=>x.id===id); if(!c) return; c[field]=value; scheduleSaveWallCompare(); recomputeWalls(); }
+  function removeWallRoom(id){
+    wallRooms = wallRooms.filter(x=>x.id!==id);
+    scheduleSaveWallRooms();
+    const card = document.getElementById('wallroom-'+id);
+    if(card) card.remove(); else { render(); return; }
+    recomputeWalls();
+  }
+  function addWallRoom(floor){
+    nextWallIdNum++;
+    const newRoom = { id:'customwall'+nextWallIdNum, floor, name:'New room', height:2.4, perimeter:0, area:0, wallType:'', price:0, wastage:10, estimated:false, include:true, manufacturer:'', productLink:'' };
+    wallRooms.push(newRoom);
+    scheduleSaveWallRooms();
+
+    const floorBlock = document.querySelector(`.floor-block[data-floor="${floor}"]`);
+    if(floorBlock){
+      const addBtn = floorBlock.querySelector('.add-room-btn');
+      const temp = document.createElement('div');
+      temp.innerHTML = buildWallCardHtml(newRoom).trim();
+      const newCardEl = temp.firstElementChild;
+      if(addBtn) floorBlock.insertBefore(newCardEl, addBtn); else floorBlock.appendChild(newCardEl);
+      wireWallCard(newCardEl);
+      newCardEl.scrollIntoView({ block:'nearest', behavior:'smooth' });
+      recomputeWalls();
+    } else {
+      render();
+    }
   }
 
   // ---- Minimal, dependency-free PDF writer -----------------------------------------
@@ -524,7 +630,7 @@
 
     return {
       get y(){ return y; }, set y(v){ y = v; },
-      pageWidth, pageHeight, ensureSpace, setFont, setSize, setColor, widthOf, fitText, text, hline, advance, build,
+      pageWidth, pageHeight, ensureSpace, newPage, setFont, setSize, setColor, widthOf, fitText, text, hline, advance, build,
     };
   }
 
@@ -569,6 +675,7 @@
     h2('Compare Flooring Types');
     metaLine(`Based on ${includedRooms.length} room${includedRooms.length===1?'':'s'} ticked \u00b7 ${includedArea.toFixed(1)} m\u00b2`);
     const compW = [160,110,110,100];
+    const colW = [135,80,50,60,55,45,60];
     row(['Flooring','Price / m2','Est. total',''], compW, {bold:true});
     compareOptions.forEach(c=>{
       const total = compareTotals[c.id];
@@ -581,7 +688,6 @@
       const floorRooms = rooms.filter(r=>r.floor===floor);
       if(floorRooms.length===0) return;
       h2(floor);
-      const colW = [135,80,50,60,55,45,60];
       row(['Room','Manufacturer','Area m2','Flooring','Price/m2','Waste','Cost'], colW, {bold:true});
       let floorTotal = 0;
       floorRooms.forEach(r=>{
@@ -604,6 +710,56 @@
       });
     }
 
+    // ---- Walls section: always included in the combined report, on its own page ----
+    doc.newPage();
+    const wc = computeWalls();
+    h1('Wall Finish Report');
+    metaLine(`Estimated from height \u00d7 perimeter per room \u00b7 figures in ${currency}`);
+    doc.advance(4);
+
+    h2('Estimated Total');
+    doc.setFont('bold'); doc.setSize(22); doc.setColor(23,20,15);
+    doc.text(`${currency}${fmt(wc.grandTotal)}`, marginX); doc.advance(24);
+    doc.setFont('reg'); doc.setSize(9.5); doc.setColor(90,85,78);
+    wc.floors.filter(f=>wc.floorTotals[f]).forEach(f=>{ doc.ensureSpace(14); doc.text(`${f}: ${currency}${fmt(wc.floorTotals[f])}`, marginX); doc.advance(14); });
+    doc.advance(10);
+
+    h2('Compare Wall Finishes');
+    metaLine(`Based on ${wc.includedRooms.length} room${wc.includedRooms.length===1?'':'s'} ticked \u00b7 ${wc.includedArea.toFixed(1)} m\u00b2`);
+    row(['Finish','Price / m2','Est. total',''], compW, {bold:true});
+    wallCompareOptions.forEach(c=>{
+      const total = wc.compareTotals[c.id];
+      const isBest = wc.minTotal!==null && Number(c.price)>0 && total===wc.minTotal;
+      row([c.name || 'Finish', `${currency}${fmt(c.price)}`, `${currency}${fmt(total)}`, isBest?'Best value':''], compW, isBest ? { color:[31,109,74], bold:true } : {});
+    });
+    doc.advance(8);
+
+    wc.floors.forEach(floor=>{
+      const floorRooms = wallRooms.filter(r=>r.floor===floor);
+      if(floorRooms.length===0) return;
+      h2(floor);
+      row(['Room','Manufacturer','Area m2','Finish','Price/m2','Waste','Cost'], colW, {bold:true});
+      let floorTotal = 0;
+      floorRooms.forEach(r=>{
+        const cost = roomCost(r); floorTotal += cost;
+        row([r.name + (r.estimated?' (est.)':''), r.manufacturer||'-', Number(r.area).toFixed(2), r.wallType||'-', `${currency}${fmt(r.price)}`, r.wastage+'%', `${currency}${fmt(cost)}`], colW);
+      });
+      doc.ensureSpace(lineH+4);
+      doc.setFont('bold'); doc.setSize(9.5); doc.setColor(23,20,15);
+      doc.text(`Subtotal: ${currency}${fmt(floorTotal)}`, marginX); doc.advance(20);
+    });
+
+    const wallRoomsWithLinks = wallRooms.filter(r=>r.productLink);
+    if(wallRoomsWithLinks.length){
+      doc.advance(4);
+      h2('Wall Product Links');
+      const linkColW2 = [165,350];
+      row(['Room','Link'], linkColW2, {bold:true});
+      wallRoomsWithLinks.forEach(r=>{
+        row([r.name, normalizeUrl(r.productLink)], linkColW2);
+      });
+    }
+
     const bytes = doc.build();
     const blob = new Blob([bytes], { type:'application/pdf' });
     const url = URL.createObjectURL(blob);
@@ -617,7 +773,7 @@
   }
 
   function exportData(){
-    const payload = { version:2, exportedAt:new Date().toISOString(), currency, rooms, compareOptions };
+    const payload = { version:3, exportedAt:new Date().toISOString(), currency, rooms, compareOptions, wallRooms, wallCompareOptions };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -665,18 +821,54 @@
           }));
         }
 
+        // Wall data is optional in older export files — fall back to keeping what's already loaded.
+        let cleanWallRooms = wallRooms;
+        if(Array.isArray(data.wallRooms) && data.wallRooms.length){
+          cleanWallRooms = data.wallRooms.map((r, i)=>({
+            id: (typeof r.id === 'string' && r.id) ? r.id : ('importedwall'+i+'-'+Date.now()),
+            floor: (typeof r.floor === 'string' && r.floor) ? r.floor : 'Ground Floor',
+            name: (typeof r.name === 'string' && r.name) ? r.name : 'Room',
+            height: Number(r.height)||0,
+            perimeter: Number(r.perimeter)||0,
+            area: Number(r.area)||0,
+            wallType: typeof r.wallType === 'string' ? r.wallType : '',
+            price: Number(r.price)||0,
+            wastage: Number.isFinite(Number(r.wastage)) ? Number(r.wastage) : 10,
+            estimated: !!r.estimated,
+            include: r.include !== undefined ? !!r.include : true,
+            manufacturer: typeof r.manufacturer === 'string' ? r.manufacturer : '',
+            productLink: typeof r.productLink === 'string' ? r.productLink : '',
+          }));
+        }
+        let cleanWallCompare = wallCompareOptions;
+        if(Array.isArray(data.wallCompareOptions) && data.wallCompareOptions.length){
+          cleanWallCompare = data.wallCompareOptions.map((c, i)=>({
+            id: (typeof c.id === 'string' && c.id) ? c.id : ('wallopt'+i),
+            name: (typeof c.name === 'string' && c.name) ? c.name : 'Finish',
+            price: Number(c.price)||0,
+            cls: ['carpet','timber','tile'].includes(c.cls) ? c.cls : ['carpet','timber','tile'][i%3],
+          }));
+        }
+
         rooms = cleanRooms;
         compareOptions = cleanCompare;
-        displayedCompareTotals = {};
-        compareOptions.forEach(c=>displayedCompareTotals[c.id]=0);
+        wallRooms = cleanWallRooms;
+        wallCompareOptions = cleanWallCompare;
+        migrateLegacyFlooring();
+        flooringAnim = { total:0, compareTotals:{} };
+        wallAnim = { total:0, compareTotals:{} };
         if(typeof data.currency === 'string' && data.currency.length <= 3) currency = data.currency;
 
         rooms.forEach(r=>{
           const m = /^custom(\d+)$/.exec(r.id);
           if(m) nextIdNum = Math.max(nextIdNum, parseInt(m[1],10));
         });
+        wallRooms.forEach(r=>{
+          const m = /^customwall(\d+)$/.exec(r.id);
+          if(m) nextWallIdNum = Math.max(nextWallIdNum, parseInt(m[1],10));
+        });
 
-        scheduleSaveRooms(); scheduleSaveCompare(); scheduleSaveCurrency();
+        scheduleSaveRooms(); scheduleSaveCompare(); scheduleSaveCurrency(); scheduleSaveWallRooms(); scheduleSaveWallCompare();
         render();
         const status = document.getElementById('save-status');
         if(status) status.textContent = 'Imported';
@@ -687,30 +879,35 @@
     reader.readAsText(file);
   }
 
-  function animateNumbers(targetTotal, targetCompareTotals){
+  let flooringAnim = { total:0, compareTotals:{} };
+  let wallAnim = { total:0, compareTotals:{} };
+
+  function animateNumbers(targetTotal, targetCompareTotals, state, compareList){
+    state = state || flooringAnim; compareList = compareList || compareOptions;
     if(rafHandle) cancelAnimationFrame(rafHandle);
-    const startTotal = displayedTotal, startCompare = {...displayedCompareTotals};
+    const startTotal = state.total, startCompare = {...state.compareTotals};
     const startTime = performance.now(), duration = 550;
     function tick(now){
       const t = Math.min(1, (now-startTime)/duration);
       const ease = 1 - Math.pow(1-t, 3);
-      displayedTotal = startTotal + (targetTotal-startTotal)*ease;
+      state.total = startTotal + (targetTotal-startTotal)*ease;
       Object.keys(targetCompareTotals).forEach(id=>{
         const s = startCompare[id]||0;
-        displayedCompareTotals[id] = s + (targetCompareTotals[id]-s)*ease;
+        state.compareTotals[id] = s + (targetCompareTotals[id]-s)*ease;
       });
-      paintNumbers();
-      if(t<1) rafHandle = requestAnimationFrame(tick); else { displayedTotal = targetTotal; displayedCompareTotals = {...targetCompareTotals}; paintNumbers(); }
+      paintNumbers(state, compareList);
+      if(t<1) rafHandle = requestAnimationFrame(tick); else { state.total = targetTotal; state.compareTotals = {...targetCompareTotals}; paintNumbers(state, compareList); }
     }
     rafHandle = requestAnimationFrame(tick);
   }
 
-  function paintNumbers(){
+  function paintNumbers(state, compareList){
+    state = state || flooringAnim; compareList = compareList || compareOptions;
     const heroFig = document.getElementById('hero-total-fig');
-    if(heroFig) heroFig.textContent = currency + fmt(displayedTotal);
-    compareOptions.forEach(c=>{
+    if(heroFig) heroFig.textContent = currency + fmt(state.total);
+    compareList.forEach(c=>{
       const el = document.getElementById('compare-total-'+c.id);
-      if(el) el.textContent = currency + fmt(displayedCompareTotals[c.id]||0);
+      if(el) el.textContent = currency + fmt(state.compareTotals[c.id]||0);
     });
   }
 
@@ -721,6 +918,30 @@
     if(/^https?:\/\//i.test(trimmed)) return trimmed;
     return 'https://' + trimmed;
   }
+
+  function materialTintClass(materialValue, dataCompareOptions){
+    if(!materialValue) return '';
+    const match = dataCompareOptions.find(c => c.name && c.name.trim().toLowerCase() === String(materialValue).trim().toLowerCase());
+    return match ? 'tint-' + match.cls : '';
+  }
+  function buildMaterialOptionsHtml(currentValue, dataCompareOptions, placeholder){
+    const norm = String(currentValue||'').trim().toLowerCase();
+    const matched = dataCompareOptions.some(c => c.name && c.name.trim().toLowerCase() === norm);
+    let html = `<option value="" ${!currentValue?'selected':''}>${placeholder}</option>`;
+    html += dataCompareOptions.map(c=>{
+      const label = c.name || 'Material';
+      const isSelected = currentValue && label.trim().toLowerCase() === norm;
+      return `<option value="${escapeHtml(label)}" ${isSelected?'selected':''}>${escapeHtml(label)}</option>`;
+    }).join('');
+    if(currentValue && !matched){
+      html += `<option value="${escapeHtml(currentValue)}" selected>${escapeHtml(currentValue)}</option>`;
+    }
+    return html;
+  }
+  function flooringTintClass(v){ return materialTintClass(v, compareOptions); }
+  function buildFlooringOptionsHtml(v){ return buildMaterialOptionsHtml(v, compareOptions, 'Choose flooring type\u2026'); }
+  function wallTintClass(v){ return materialTintClass(v, wallCompareOptions); }
+  function buildWallOptionsHtml(v){ return buildMaterialOptionsHtml(v, wallCompareOptions, 'Choose wall finish\u2026'); }
 
   function buildRoomCardHtml(r){
     const cost = roomCost(r);
@@ -735,7 +956,11 @@
         </div>
         <div class="room-card-measurements">
           <div class="field"><label>Area (m²)</label><input type="number" step="0.01" min="0" value="${r.area}" data-id="${r.id}" data-field="area" /></div>
-          <div class="field"><label>Flooring type</label><input type="text" value="${escapeHtml(r.flooring)}" data-id="${r.id}" data-field="flooring" placeholder="e.g. Carpet" /></div>
+          <div class="field"><label>Flooring type</label>
+            <select class="flooring-type-select ${flooringTintClass(r.flooring)}" data-id="${r.id}" data-field="flooring">
+              ${buildFlooringOptionsHtml(r.flooring)}
+            </select>
+          </div>
           <div class="field"><label>Price /m²</label><input type="number" step="0.01" min="0" value="${r.price}" data-id="${r.id}" data-field="price" /></div>
           <div class="field"><label>Wastage %</label><input type="number" step="1" min="0" value="${r.wastage}" data-id="${r.id}" data-field="wastage" /></div>
           <div class="cost-out" id="cost-${r.id}"><span class="lbl">Cost</span><span class="cur">${currency}</span>${fmt(cost)}</div>
@@ -748,18 +973,52 @@
       </div>`;
   }
 
-  function computeAll(){
+  function buildWallCardHtml(r){
+    const cost = roomCost(r);
+    const linkHref = r.productLink ? escapeHtml(normalizeUrl(r.productLink)) : '#';
+    return `
+      <div class="room-card ${r.estimated?'estimated':''}" id="wallroom-${r.id}">
+        <button class="remove-btn" data-remove="${r.id}" title="Remove room">×</button>
+        <div class="room-card-header">
+          <button class="include-toggle ${r.include?'on':''}" data-toggle-include="${r.id}" title="Include in comparison"></button>
+          <input type="text" class="room-name-input" value="${escapeHtml(r.name)}" data-id="${r.id}" data-field="name" placeholder="Room name" />
+          ${r.estimated?'<span class="est-tag">Est.</span>':''}
+        </div>
+        <div class="room-card-wallarea">
+          <div class="field"><label>Height (m)</label><input type="number" step="0.01" min="0" value="${r.height}" data-id="${r.id}" data-field="height" /></div>
+          <div class="field"><label>Perimeter (m)</label><input type="number" step="0.01" min="0" value="${r.perimeter}" data-id="${r.id}" data-field="perimeter" /></div>
+          <div class="field"><label>Area (m²)</label><input type="number" step="0.01" min="0" value="${r.area}" data-id="${r.id}" data-field="area" /></div>
+        </div>
+        <div class="room-card-wallcost">
+          <div class="field"><label>Wall finish</label>
+            <select class="flooring-type-select ${wallTintClass(r.wallType)}" data-id="${r.id}" data-field="wallType">
+              ${buildWallOptionsHtml(r.wallType)}
+            </select>
+          </div>
+          <div class="field"><label>Price /m²</label><input type="number" step="0.01" min="0" value="${r.price}" data-id="${r.id}" data-field="price" /></div>
+          <div class="field"><label>Wastage %</label><input type="number" step="1" min="0" value="${r.wastage}" data-id="${r.id}" data-field="wastage" /></div>
+          <div class="cost-out" id="wallcost-${r.id}"><span class="lbl">Cost</span><span class="cur">${currency}</span>${fmt(cost)}</div>
+        </div>
+        <div class="room-card-product">
+          <div class="field"><label>Manufacturer</label><input type="text" value="${escapeHtml(r.manufacturer||'')}" data-id="${r.id}" data-field="manufacturer" placeholder="e.g. Dulux" /></div>
+          <div class="field"><label>Product link</label><input type="url" value="${escapeHtml(r.productLink||'')}" data-id="${r.id}" data-field="productLink" placeholder="https://..." /></div>
+          <a class="product-link-btn ${r.productLink?'':'disabled'}" id="walllink-${r.id}" href="${linkHref}" target="_blank" rel="noopener noreferrer" title="${r.productLink?'Open product page':'Add a link to enable'}">🔗</a>
+        </div>
+      </div>`;
+  }
+
+  function computeGeneric(dataRooms, dataCompareOptions){
     const floors = ['First Floor','Ground Floor','Outbuilding'];
     let grandTotal = 0, grandArea = 0;
     const floorTotals = {};
-    rooms.forEach(r=>{ const cost = roomCost(r); grandTotal += cost; grandArea += Number(r.area)||0; floorTotals[r.floor] = (floorTotals[r.floor]||0)+cost; });
+    dataRooms.forEach(r=>{ const cost = roomCost(r); grandTotal += cost; grandArea += Number(r.area)||0; floorTotals[r.floor] = (floorTotals[r.floor]||0)+cost; });
 
-    const includedRooms = rooms.filter(r=>r.include);
+    const includedRooms = dataRooms.filter(r=>r.include);
     const includedArea = includedRooms.reduce((s,r)=>s+(Number(r.area)||0),0);
     const compareTotals = {};
-    compareOptions.forEach(c=>{ compareTotals[c.id] = includedRooms.reduce((s,r)=>s+roomCost(r, c.price),0); });
+    dataCompareOptions.forEach(c=>{ compareTotals[c.id] = includedRooms.reduce((s,r)=>s+roomCost(r, c.price),0); });
     const maxCompare = Math.max(1, ...Object.values(compareTotals));
-    const positiveTotals = compareOptions.filter(c=>Number(c.price)>0).map(c=>compareTotals[c.id]);
+    const positiveTotals = dataCompareOptions.filter(c=>Number(c.price)>0).map(c=>compareTotals[c.id]);
     const minTotal = positiveTotals.length ? Math.min(...positiveTotals) : null;
 
     let ringOffset = 0;
@@ -773,10 +1032,14 @@
 
     return { floors, grandTotal, grandArea, floorTotals, includedRooms, includedArea, compareTotals, maxCompare, minTotal, ringSegs, circumference };
   }
+  function computeAll(){ return computeGeneric(rooms, compareOptions); }
+  function computeWalls(){ return computeGeneric(wallRooms, wallCompareOptions); }
 
   // Lightweight update: recompute figures and patch only the specific elements that changed.
   // Never touches <input> elements, so the field the person is typing in keeps focus and caret position.
-  function recompute(){
+  function recompute(){ if(activeTab === 'walls') recomputeWalls(); else recomputeFlooring(); }
+
+  function recomputeFlooring(){
     const { floors, grandTotal, floorTotals, includedRooms, includedArea, compareTotals, maxCompare, minTotal, ringSegs, circumference } = computeAll();
 
     rooms.forEach(r=>{
@@ -821,26 +1084,65 @@
       if(bar) bar.style.width = (maxCompare>0 ? Math.max(4, total/maxCompare*100) : 0)+'%';
     });
 
-    animateNumbers(grandTotal, compareTotals);
+    animateNumbers(grandTotal, compareTotals, flooringAnim, compareOptions);
   }
 
-  // Full rebuild: only used on load, add/remove room, and reset (structural changes).
-  function render(){
-    const { floors, grandTotal, grandArea, floorTotals, includedRooms, includedArea, compareTotals, maxCompare, minTotal, ringSegs, circumference } = computeAll();
+  function recomputeWalls(){
+    const { floors, grandTotal, floorTotals, includedRooms, includedArea, compareTotals, maxCompare, minTotal, ringSegs, circumference } = computeWalls();
 
-    let html = `
-      <div class="print-header">
-        <h1>Flooring Cost Report</h1>
-        <div class="meta">Generated ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })} · figures in ${currency}, estimated from floor plan measurements</div>
-      </div>
-      <div class="title-row stagger" style="animation-delay:.02s">
-        <h1>Flooring Cost Calculator</h1>
-        <span class="version-tag">v3</span>
-      </div>
-      <p class="subhead stagger" style="animation-delay:.06s">Pre-loaded from your floor plan measurements. Compare flooring types, or edit each room's own price directly.</p>
+    wallRooms.forEach(r=>{
+      const el = document.getElementById('wallcost-'+r.id);
+      if(el) el.innerHTML = `<span class="cur">${currency}</span>${fmt(roomCost(r))}`;
+      const linkBtn = document.getElementById('walllink-'+r.id);
+      if(linkBtn){
+        const has = !!r.productLink;
+        linkBtn.href = has ? normalizeUrl(r.productLink) : '#';
+        linkBtn.classList.toggle('disabled', !has);
+        linkBtn.title = has ? 'Open product page' : 'Add a link to enable';
+      }
+    });
+    floors.forEach(f=>{
+      const el = document.getElementById('wsubtotal-'+f.replace(/\s/g,''));
+      const floorArea = wallRooms.filter(r=>r.floor===f).reduce((s,r)=>s+(Number(r.area)||0),0);
+      if(el) el.textContent = `${currency}${fmt(floorTotals[f]||0)} · ${floorArea.toFixed(1)} m²`;
+    });
 
+    const hint = document.getElementById('section-hint');
+    if(hint) hint.textContent = `Based on the ${includedRooms.length} room${includedRooms.length===1?'':'s'} ticked below · ${includedArea.toFixed(1)} m²`;
+
+    const breakdown = document.getElementById('hero-breakdown');
+    if(breakdown){
+      breakdown.innerHTML = floors.filter(f=>floorTotals[f]).map(f=>`<div class="hero-chip"><span class="dot" style="background:${FLOOR_COLORS[f]}"></span>${f}: ${currency}${fmt(floorTotals[f])}</div>`).join('')
+        + `<div class="hero-chip">${wallRooms.reduce((s,r)=>s+(Number(r.area)||0),0).toFixed(1)} m² across ${wallRooms.length} rooms</div>`;
+    }
+    const ringSvg = document.getElementById('hero-ring-svg');
+    if(ringSvg){
+      ringSvg.innerHTML = `<circle cx="56" cy="56" r="50" fill="none" stroke="rgba(17,17,17,0.15)" stroke-width="8"/>`
+        + ringSegs.map(s=>`<circle cx="56" cy="56" r="50" fill="none" stroke="${s.color}" stroke-width="8"
+            stroke-dasharray="${(s.frac*circumference).toFixed(1)} ${circumference.toFixed(1)}"
+            stroke-dashoffset="${(-s.offset*circumference).toFixed(1)}" stroke-linecap="round"/>`).join('');
+    }
+
+    wallCompareOptions.forEach(c=>{
+      const total = compareTotals[c.id];
+      const isBest = minTotal!==null && Number(c.price)>0 && total===minTotal;
+      const card = document.getElementById('compare-card-'+c.id);
+      if(card) card.classList.toggle('is-best', !!isBest);
+      const bar = document.getElementById('compare-bar-'+c.id);
+      if(bar) bar.style.width = (maxCompare>0 ? Math.max(4, total/maxCompare*100) : 0)+'%';
+    });
+
+    animateNumbers(grandTotal, compareTotals, wallAnim, wallCompareOptions);
+  }
+
+  function buildToolbarHtml(){
+    return `
       <div class="toolbar stagger" style="animation-delay:.1s">
         <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <div class="tab-group">
+            <button class="tab-btn ${activeTab==='flooring'?'active':''}" id="tab-flooring-btn">Flooring</button>
+            <button class="tab-btn ${activeTab==='walls'?'active':''}" id="tab-walls-btn">Walls</button>
+          </div>
           <select class="pill-select" id="currency-select">
             <option value="£" ${currency==='£'?'selected':''}>£ GBP</option>
             <option value="€" ${currency==='€'?'selected':''}>€ EUR</option>
@@ -852,10 +1154,15 @@
           <button class="pill-btn" id="export-data-btn">Export data</button>
           <button class="pill-btn" id="import-data-btn">Import data</button>
           <input type="file" id="import-file-input" class="file-hidden-input" accept="application/json,.json" />
-          <button class="pill-btn" id="reset-btn">Reset to plan defaults</button>
+          <button class="pill-btn" id="reset-btn">Reset to defaults</button>
         </div>
       </div>
+    `;
+  }
 
+  function buildHeroHtml(computed, heroLabel, datasetLength){
+    const { floors, floorTotals, grandArea, ringSegs, circumference } = computed;
+    return `
       <div class="hero stagger" style="animation-delay:.14s">
         <div class="orb">
           <div class="orb-ring">
@@ -869,29 +1176,33 @@
           </div>
         </div>
         <div class="hero-copy">
-          <div class="hero-label">Estimated whole-house flooring cost</div>
+          <div class="hero-label">${heroLabel}</div>
           <div class="hero-total" style="display:none;"></div>
           <div class="hero-breakdown" id="hero-breakdown">
             ${floors.filter(f=>floorTotals[f]).map(f=>`<div class="hero-chip"><span class="dot" style="background:${FLOOR_COLORS[f]}"></span>${f}: ${currency}${fmt(floorTotals[f])}</div>`).join('')}
-            <div class="hero-chip">${grandArea.toFixed(1)} m² across ${rooms.length} rooms</div>
+            <div class="hero-chip">${grandArea.toFixed(1)} m² across ${datasetLength} rooms</div>
           </div>
         </div>
       </div>
+    `;
+  }
 
+  function buildCompareGridHtml(dataCompareOptions, computed, sectionTitle, namePlaceholder){
+    const { includedRooms, includedArea, compareTotals, minTotal } = computed;
+    return `
       <div class="section-title stagger" style="animation-delay:.18s">
-        <h2>Compare Flooring Types</h2>
+        <h2>${sectionTitle}</h2>
         <div class="section-hint" id="section-hint">Based on the ${includedRooms.length} room${includedRooms.length===1?'':'s'} ticked below · ${includedArea.toFixed(1)} m²</div>
       </div>
       <div class="compare-grid stagger" style="animation-delay:.2s">
-        ${compareOptions.map(c=>{
+        ${dataCompareOptions.map(c=>{
           const total = compareTotals[c.id];
           const isBest = minTotal!==null && Number(c.price)>0 && total===minTotal;
-          const barPct = maxCompare>0 ? Math.max(4,(total/maxCompare*100)) : 0;
           return `
           <div class="compare-card ${c.cls} ${isBest?'is-best':''}" id="compare-card-${c.id}">
             <span class="best-tag">Best value</span>
             <div>
-              <input class="compare-name-input" data-compare-id="${c.id}" data-compare-field="name" value="${escapeHtml(c.name)}" placeholder="Flooring name" />
+              <input class="compare-name-input" data-compare-id="${c.id}" data-compare-field="name" value="${escapeHtml(c.name)}" placeholder="${namePlaceholder}" />
               <div class="compare-price-row">
                 <span class="cur">${currency}</span>
                 <input type="number" class="compare-price-input" min="0" step="0.01" data-compare-id="${c.id}" data-compare-field="price" value="${c.price}" placeholder="0.00" />
@@ -906,6 +1217,31 @@
           </div>`;
         }).join('')}
       </div>
+    `;
+  }
+
+  // Full rebuild: only used on load, tab switch, add/remove room, and reset (structural changes).
+  function render(){
+    if(activeTab === 'walls') renderWallsTab(); else renderFlooringTab();
+  }
+
+  function renderFlooringTab(){
+    const computed = computeAll();
+    const { floors, compareTotals, maxCompare } = computed;
+
+    let html = `
+      <div class="print-header">
+        <h1>Flooring Cost Report</h1>
+        <div class="meta">Generated ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })} · figures in ${currency}, estimated from floor plan measurements</div>
+      </div>
+      <div class="title-row stagger" style="animation-delay:.02s">
+        <h1>Flooring Cost Calculator</h1>
+        <span class="version-tag">v4</span>
+      </div>
+      <p class="subhead stagger" style="animation-delay:.06s">Pre-loaded from your floor plan measurements. Compare flooring types, or edit each room's own price directly.</p>
+      ${buildToolbarHtml()}
+      ${buildHeroHtml(computed, 'Estimated whole-house flooring cost', rooms.length)}
+      ${buildCompareGridHtml(compareOptions, computed, 'Compare Flooring Types', 'Flooring name')}
     `;
 
     floors.forEach((floor, fi) => {
@@ -926,7 +1262,7 @@
 
     root.innerHTML = html;
     attachHandlers();
-    animateNumbers(grandTotal, compareTotals);
+    animateNumbers(computed.grandTotal, compareTotals, flooringAnim, compareOptions);
     requestAnimationFrame(()=>{
       compareOptions.forEach(c=>{
         const bar = document.getElementById('compare-bar-'+c.id);
@@ -934,6 +1270,53 @@
       });
     });
   }
+
+  function renderWallsTab(){
+    const computed = computeWalls();
+    const { floors, compareTotals, maxCompare } = computed;
+
+    let html = `
+      <div class="print-header">
+        <h1>Wall Finish Report</h1>
+        <div class="meta">Generated ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })} · figures in ${currency}, estimated from height × perimeter</div>
+      </div>
+      <div class="title-row stagger" style="animation-delay:.02s">
+        <h1>Wall Finish Calculator</h1>
+        <span class="version-tag">v4</span>
+      </div>
+      <p class="subhead stagger" style="animation-delay:.06s">Enter each room's ceiling height and perimeter to estimate wall area, then compare paint, tiles and panelling.</p>
+      ${buildToolbarHtml()}
+      ${buildHeroHtml(computed, 'Estimated whole-house wall finish cost', wallRooms.length)}
+      ${buildCompareGridHtml(wallCompareOptions, computed, 'Compare Wall Finishes', 'Finish name')}
+    `;
+
+    floors.forEach((floor, fi) => {
+      const floorRooms = wallRooms.filter(r=>r.floor===floor);
+      if(floorRooms.length===0) return;
+      let floorTotal = 0, floorArea = 0;
+      const floorIdSafe = floor.replace(/\s/g,'');
+      html += `<div class="floor-block stagger" style="animation-delay:${(0.24+fi*0.05).toFixed(2)}s" data-floor="${floor}"><div class="floor-title"><h2>${floor}</h2><div class="floor-subtotal" id="wsubtotal-${floorIdSafe}"></div></div>`;
+      floorRooms.forEach(r=>{
+        const cost = roomCost(r); floorTotal+=cost; floorArea += Number(r.area)||0;
+        html += buildWallCardHtml(r);
+      });
+      html += `<button class="add-room-btn" data-add-wall-floor="${floor}">+ Add room to ${floor}</button></div>`;
+      html = html.replace(`id="wsubtotal-${floorIdSafe}"></div>`, `id="wsubtotal-${floorIdSafe}">${currency}${fmt(floorTotal)} · ${floorArea.toFixed(1)} m²</div>`);
+    });
+
+    html += `<p class="save-note stagger" style="animation-delay:.4s">Saved automatically · tick the box on a room to include it in the compare panel above <span id="save-status" style="font-style:normal;"></span></p>`;
+
+    root.innerHTML = html;
+    attachHandlers();
+    animateNumbers(computed.grandTotal, compareTotals, wallAnim, wallCompareOptions);
+    requestAnimationFrame(()=>{
+      wallCompareOptions.forEach(c=>{
+        const bar = document.getElementById('compare-bar-'+c.id);
+        if(bar) bar.style.width = (maxCompare>0 ? Math.max(4, compareTotals[c.id]/maxCompare*100) : 0)+'%';
+      });
+    });
+  }
+
 
   function wireRoomCard(cardEl){
     cardEl.querySelectorAll('input[data-id]').forEach(inp=>{
@@ -944,26 +1327,64 @@
         updateRoom(id, field, val);
       });
     });
+    cardEl.querySelectorAll('select[data-id]').forEach(sel=>{
+      sel.addEventListener('change', e=>{
+        const id = e.target.getAttribute('data-id'), field = e.target.getAttribute('data-field');
+        updateRoom(id, field, e.target.value);
+        e.target.classList.remove('tint-carpet','tint-timber','tint-tile');
+        const tintCls = flooringTintClass(e.target.value);
+        if(tintCls) e.target.classList.add(tintCls);
+      });
+    });
     const toggleBtn = cardEl.querySelector('[data-toggle-include]');
     if(toggleBtn) toggleBtn.addEventListener('click', e=>toggleInclude(e.currentTarget.getAttribute('data-toggle-include')));
     const removeBtn = cardEl.querySelector('[data-remove]');
     if(removeBtn) removeBtn.addEventListener('click', e=>removeRoom(e.target.getAttribute('data-remove')));
   }
 
-  function attachHandlers(){
-    // 'input' fires on every keystroke — pairs with recompute() (not a full render) so typing feels live and never loses focus.
-    root.querySelectorAll('.room-card').forEach(card=>wireRoomCard(card));
-    root.querySelectorAll('[data-add-floor]').forEach(btn=>{
-      btn.addEventListener('click', e=>addRoom(e.target.getAttribute('data-add-floor')));
-    });
-    root.querySelectorAll('[data-compare-id]').forEach(inp=>{
+  function wireWallCard(cardEl){
+    cardEl.querySelectorAll('input[data-id]').forEach(inp=>{
       inp.addEventListener('input', e=>{
-        const id = e.target.getAttribute('data-compare-id'), field = e.target.getAttribute('data-compare-field');
+        const id = e.target.getAttribute('data-id'), field = e.target.getAttribute('data-field');
         let val = e.target.value;
-        if(field==='price') val = parseFloat(val)||0;
-        updateCompare(id, field, val);
+        if(['height','perimeter','area','price','wastage'].includes(field)) val = parseFloat(val)||0;
+        updateWallRoom(id, field, val);
+        // Height/perimeter auto-calculate the area — but the area field stays freely editable afterwards
+        // (e.g. to knock a bit off for doors and windows), until height or perimeter change again.
+        if(field === 'height' || field === 'perimeter'){
+          const r = wallRooms.find(x=>x.id===id);
+          if(r){
+            const newArea = Math.round((Number(r.height)||0) * (Number(r.perimeter)||0) * 100) / 100;
+            r.area = newArea;
+            const areaInput = cardEl.querySelector('[data-field="area"]');
+            if(areaInput) areaInput.value = newArea;
+            scheduleSaveWallRooms(); recomputeWalls();
+          }
+        }
       });
     });
+    cardEl.querySelectorAll('select[data-id]').forEach(sel=>{
+      sel.addEventListener('change', e=>{
+        const id = e.target.getAttribute('data-id'), field = e.target.getAttribute('data-field');
+        updateWallRoom(id, field, e.target.value);
+        e.target.classList.remove('tint-carpet','tint-timber','tint-tile');
+        const tintCls = wallTintClass(e.target.value);
+        if(tintCls) e.target.classList.add(tintCls);
+      });
+    });
+    const toggleBtn = cardEl.querySelector('[data-toggle-include]');
+    if(toggleBtn) toggleBtn.addEventListener('click', e=>toggleWallInclude(e.currentTarget.getAttribute('data-toggle-include')));
+    const removeBtn = cardEl.querySelector('[data-remove]');
+    if(removeBtn) removeBtn.addEventListener('click', e=>removeWallRoom(e.target.getAttribute('data-remove')));
+  }
+
+  function attachHandlers(){
+    // 'input' fires on every keystroke — pairs with recompute() (not a full render) so typing feels live and never loses focus.
+    const tabFlooringBtn = document.getElementById('tab-flooring-btn');
+    if(tabFlooringBtn) tabFlooringBtn.addEventListener('click', ()=>{ if(activeTab!=='flooring'){ activeTab='flooring'; scheduleSaveTab(); render(); } });
+    const tabWallsBtn = document.getElementById('tab-walls-btn');
+    if(tabWallsBtn) tabWallsBtn.addEventListener('click', ()=>{ if(activeTab!=='walls'){ activeTab='walls'; scheduleSaveTab(); render(); } });
+
     const resetBtn = document.getElementById('reset-btn'); if(resetBtn) resetBtn.addEventListener('click', resetDefaults);
     const exportPdfBtn = document.getElementById('export-pdf-btn'); if(exportPdfBtn) exportPdfBtn.addEventListener('click', generatePDF);
     const exportDataBtn = document.getElementById('export-data-btn'); if(exportDataBtn) exportDataBtn.addEventListener('click', exportData);
@@ -982,6 +1403,34 @@
       render();
       window.scrollTo(0, y);
     });
+
+    if(activeTab === 'walls'){
+      root.querySelectorAll('.room-card').forEach(card=>wireWallCard(card));
+      root.querySelectorAll('[data-add-wall-floor]').forEach(btn=>{
+        btn.addEventListener('click', e=>addWallRoom(e.target.getAttribute('data-add-wall-floor')));
+      });
+      root.querySelectorAll('[data-compare-id]').forEach(inp=>{
+        inp.addEventListener('input', e=>{
+          const id = e.target.getAttribute('data-compare-id'), field = e.target.getAttribute('data-compare-field');
+          let val = e.target.value;
+          if(field==='price') val = parseFloat(val)||0;
+          updateWallCompare(id, field, val);
+        });
+      });
+    } else {
+      root.querySelectorAll('.room-card').forEach(card=>wireRoomCard(card));
+      root.querySelectorAll('[data-add-floor]').forEach(btn=>{
+        btn.addEventListener('click', e=>addRoom(e.target.getAttribute('data-add-floor')));
+      });
+      root.querySelectorAll('[data-compare-id]').forEach(inp=>{
+        inp.addEventListener('input', e=>{
+          const id = e.target.getAttribute('data-compare-id'), field = e.target.getAttribute('data-compare-field');
+          let val = e.target.value;
+          if(field==='price') val = parseFloat(val)||0;
+          updateCompare(id, field, val);
+        });
+      });
+    }
   }
 
   load();
